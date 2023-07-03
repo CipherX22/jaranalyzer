@@ -43,65 +43,9 @@ public class App
             Main.analizeClass(c);
         }
 
-        try {
-            JarFile jarFile = new JarFile(jarFilePath);
-            Enumeration<JarEntry> entries = jarFile.entries();
-            // recupero tutte le entries del jar
-            /*while(entries.hasMoreElements()) {
-                // se l'elemento è una classe recuperala
-                JarEntry entry = entries.nextElement();
-                if(!entry.getName().contains(".class")) continue;
-                Class c = entry.getClass();
-                System.out.println(c.getSimpleName());
-
-            }*/
-
-
-            //System.out.println(entries.toString());
-            /*while (entries.hasMoreElements()) {
-                JarEntry entry = entries.nextElement();
-
-                if (entry.isDirectory()) {
-                    String packageName = entry.getName().replace("/", ".");
-                    //packageNames.add(packageName);
-                } else if (entry.getName().endsWith(".class")) {
-                    String className = entry.getName().replace("/", ".").replace(".class", "");
-                    int packageIndex = className.lastIndexOf('.');
-                    if (packageIndex != -1) {
-                        String packageName = className.substring(0, packageIndex);
-                        packageNames.add(packageName);
-                    }
-                }
-            }
-*/
-            jarFile.close();
-            /*for(String name : packageNames) {
-                System.out.println(name);
-            }*/
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-
-        //System.out.println("START");
-
-        //for (String packageName : packageNames) {
-            //System.out.println(packageName);
-            //if (packageName.equals("org.bukkit.block")) {
-                //searchInPackage(jarFilePath, packageName);
-            //}
-        //}
-
-
-        // recupera la classe
-
-
-        //System.out.println("END");
         
     }
-    private static Set<String> getPackageNamesFromJar(String jarFilePath) throws IOException {
+   /* private static Set<String> getPackageNamesFromJar(String jarFilePath) throws IOException {
         Set<String> packageNames = new HashSet<>();
         JarFile jarFile = new JarFile(jarFilePath);
 
@@ -126,7 +70,7 @@ public class App
         jarFile.close();
         return packageNames;
     }
-
+*/
    /*private static void searchInPackage(String jarFilePath, String packageName) throws IOException {
         JarFile jarFile = new JarFile(jarFilePath);
 
@@ -166,7 +110,7 @@ public class App
 
         jarFile.close();
     }*/
-
+/*
     private static void searchInPackage(String jarFilePath, String packageName) throws IOException {
         File jarFile = new File(jarFilePath);
         URL jarUrl = jarFile.toURI().toURL();
@@ -219,6 +163,6 @@ public class App
         jar.close();
         classLoader.close();
     }
-
+*/
 
 }

@@ -29,7 +29,7 @@ public class Main {
             URL jarUrl = file.toURI().toURL();
 
             URLClassLoader classLoader = new URLClassLoader(new URL[]{jarUrl});
-            //Enumeration<JarEntry> entries = jar.entries();
+            
             Enumeration<JarEntry> enumeration = jf.entries();
             while(enumeration.hasMoreElements()) {
                 JarEntry je = enumeration.nextElement();
@@ -40,8 +40,7 @@ public class Main {
                 
                 String className = je.getName().replace("/", ".").replace(".class", "");
                 try {
-                    //System.out.println(className);
-                    if (className.contains("org.yaml.snakeyaml")) continue;
+                    //errore quì quando piglia la classe di snakeyaml, io vorrei che la passasse se trova un errore e va avanti
                     Class<?> c = classLoader.loadClass(className);
                     classes.add(c);
                 } catch (ClassNotFoundException e) {
@@ -51,7 +50,6 @@ public class Main {
                     //e.printStackTrace();
                     //System.out.println(className);
                 }
-                //Class c = je.getClass();
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
