@@ -18,6 +18,12 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.bukkit.Server;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
@@ -43,6 +49,30 @@ public class App
             Classes.analizeClass(c);
         }
 
+        try {
+                // Carica la configurazione da hibernate.cfg.xml
+                Configuration configuration = new Configuration().configure();
+
+                // Costruisce il registro dei servizi utilizzando la configurazione
+                StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties())
+                        .build();
+
+                // Crea la SessionFactory
+                SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+                Session session = sessionFactory.openSession();
+                Transaction transaction = session.beginTransaction();
+
+                User user = new User();
+
+                session.save(user);
+
+                transaction.commit();
+                session.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        
 
 
     }
