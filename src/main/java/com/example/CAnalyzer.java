@@ -12,13 +12,12 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class Classes {
+public class CAnalyzer {
 
     public static File checkFile(String path) {
         // controllo se il file esiste
         File f = new File(path);
         if(!f.exists()) { System.err.println("jar non trovato"); System.exit(-1); }
-
         return f;
     }
 
@@ -33,20 +32,15 @@ public class Classes {
             Enumeration<JarEntry> enumeration = jf.entries();
             while(enumeration.hasMoreElements()) {
                 JarEntry je = enumeration.nextElement();
-                //System.out.println(je);
                 if(je.isDirectory()) continue;
-                System.out.println(je.getName());
                 if(!je.getName().endsWith(".class")) continue;
-                //!entry.isDirectory() && entry.getName().endsWith(".class")
                 
                 String className = je.getName().replace("/", ".").replace(".class", "");
                 try {
-                    //errore quì quando piglia la classe di snakeyaml, io vorrei che la passasse se trova un errore e va avanti
                     Class<?> c = classLoader.loadClass(className);
                     classes.add(c);
                 } catch (ClassNotFoundException | NoClassDefFoundError e) {
                     // TODO Auto-generated catch block
-                    //System.out.println(classes.size());
                     //e.printStackTrace();
                     System.out.println(className);
                     continue;
@@ -60,26 +54,23 @@ public class Classes {
     }
  
     public static void analizeClass(Class c) {
-
         try {
-            System.out.println("  - " + c.getSimpleName());
+            //System.out.println("  - " + c.getSimpleName());
 
             Field[] fields = c.getDeclaredFields();
-            System.out.println("    - Attributes:");
+            //System.out.println("    - Attributes:");
             for (Field field : fields) {
-                System.out.println("      - " + field.getName());
+                //System.out.println("      - " + field.getName());
             }
 
             Method[] methods = c.getDeclaredMethods();
-            System.out.println("    - Methods:");
+            //System.out.println("    - Methods:");
             for (Method method : methods) {
-                System.out.println("      - " + method.getName());
+                //System.out.println("      - " + method.getName());
             }
         } catch (NoClassDefFoundError e) {
             // TODO: handle exception
             System.out.println(c.getName());
         }
-
-        
     }
 }
